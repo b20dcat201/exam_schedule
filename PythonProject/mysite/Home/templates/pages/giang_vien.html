@@ -1,0 +1,49 @@
+{% extends "pages/base.html" %}
+
+<!-- giao diện hiển thị danh sách giáo viên -->
+{% block listGV %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="text-center"> Danh sách giảng viên </h3>
+            <table class="table table-striped table-bordered" style="background-color: rgba(255, 255, 255, 0.5);">
+                <thead style="text-align: center;">
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">Họ và tên</th>
+                        <th scope="col">SĐT</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Khoa</th>
+                        <th scope="col">Xóa</th>
+                        <!-- <th style="text-align: center;"scope="col">Trạng thái</th> -->
+                    </tr>
+                </thead>
+                <tbody style="text-align: center;">
+                    {% for i in GiangVien %}
+                    <tr>
+                        <td>{{ i.SoTT }}</td>
+                        <td>{{ i.MaGV }}</td>
+                        <td>{{ i.TenGV }}</td>
+                        <td>{{ i.SoDT }}</td>
+                        <td>{{ i.Email }}</td>
+                        <td>{{ i.Khoa }}</td>
+                        <!-- <td>{{ i.TrangThai }}</td> -->
+                        <td>
+                            <form action="{% url 'giang_vien' %}" method="post">
+                                {% csrf_token %}
+                                <!-- <input type="text" name="xoa_gv" style="display: none;"> -->
+                                <input type="text" name="XoaGV" value="GiangVien MaGV {{ i.MaGV }}"
+                                    style="display: none;">
+                                <button type="submit" class="btn"> Xóa </button>
+                            </form>
+                        </td>
+                        <!-- <td> <a href="" class="text-decoration-none link-secondary"> Xem DS lớp </a> </td> -->
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

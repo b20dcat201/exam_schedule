@@ -1,0 +1,102 @@
+{% extends "pages/base.html" %}
+
+{% block suaLichThi %}
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('#submit-button').click(function () {
+            var data = [];
+            $('table tr').each(function (row, tr) {
+                data[row] = [];
+                $(tr).find('td').each(function (col, td) {
+                    data[row][col] = $(td).text();
+                });
+            });
+            $('#data-input').val(JSON.stringify(data));
+        });
+    });
+</script>
+
+<div class="container" style="background-color: rgba(255, 255, 255, 0.5);">
+    <div class="row">
+        <div class="col-md-12">
+            <h3 class="d-flex justify-content-center"> Sửa Lịch thi - Học kỳ: {{HocKy}} </h3>
+            <div style="text-align: center;">
+                <label>Nhập dữ liệu</label>
+                <input type="text" id="inputDiem">
+                <button onclick="fillData()">Điền dữ liệu</button>
+            </div>
+            <br>
+            <div style="text-align: center;">
+                <form method="post" action="{% url 'sua_lich_thi' %}">
+                    {% csrf_token %}
+                    <input type="hidden" id="data-input" name="data">
+                    <button type="submit" id="submit-button">Lưu thay đổi</button>
+                </form>
+            </div>
+            <hr>
+            <table class="table table-striped table-bordered">
+                <thead style="text-align: center;">
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">Mã lớp</th>
+                        <th scope="col">Tổ thi</th>
+                        <th scope="col">Số lượng</th>
+                        <th scope="col">Ngày thi</th>
+                        <th scope="col">Giờ bắt đầu</th>
+                        <th scope="col">Số phút</th>
+                        <th scope="col">Phòng Thi</th>
+                        <th scope="col">Ghi chú</th>
+                        <th scope="col">Mã GT-1</th>
+                        <th scope="col">Mã GT-2</th>
+                    </tr>
+                </thead>
+                <tbody style="text-align: center;">
+                    {% for item in list_LichThi %}
+                    <tr>
+                        <td> {{item.STT}} </td>
+                        <td> {{item.MaLH}} </td>
+                        <td contenteditable> {{item.ToThi}}</td>
+                        <td contenteditable> {{item.SoLuong}} </td>
+                        <td contenteditable> {{item.NgayThi}} </td>
+                        <td contenteditable> {{item.GioBD}} </td>
+                        <td contenteditable> {{item.SoPhut}} </td>
+                        <td contenteditable> {{item.PhongThi}} </td>
+                        <td contenteditable> {{item.GhiChu}} </td>
+                        <td contenteditable> {{item.MaGT1}} </td>
+                        <td contenteditable> {{item.MaGT2}} </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+    // Lưu các ô đã chọn vào một mảng
+    let selectedCells = [];
+    document.querySelectorAll('td[contenteditable]').forEach(cell => {
+        cell.addEventListener('click', function () {
+            if (selectedCells.includes(this)) {
+                // Nếu ô đã chọn rồi thì bỏ chọn
+                this.style.backgroundColor = '';
+                selectedCells.splice(selectedCells.indexOf(this), 1);
+            } else {
+                // Nếu chưa chọn thì đánh dấu và lưu vào mảng
+                this.style.backgroundColor = 'yellow';
+                selectedCells.push(this);
+            }
+        });
+    });
+
+    // Điền dữ liệu vào các ô đã chọn khi người dùng nhấn nút "Điền dữ liệu"
+    function fillData() {
+        let diem = document.getElementById('inputDiem').value;
+        selectedCells.forEach(cell => {
+            cell.innerText = diem;
+        });
+    }
+</script>
+{% endblock %}

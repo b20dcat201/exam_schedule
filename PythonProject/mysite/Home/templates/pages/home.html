@@ -1,0 +1,37 @@
+{% extends "pages/base.html" %}
+
+{% block trang_chu %}
+<div class="mt-5 d-flex align-items-center justify-content-center" style="height: 100%; margin: 0 2rem;">
+    <div id="carouselExampleSlidesOnly" class="carousel slide carousel-dark" data-bs-ride="carousel"
+        data-bs-interval="2000">
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+                <img src="/Home/media/images/tuyensinh.jpg" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+                <img src="/Home/media/images/thacsi.jpg" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleSlidesOnly" role="button" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </a>
+        <a class="carousel-control-next" href="#carouselExampleSlidesOnly" role="button" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </a>
+    </div>
+</div>
+{% endblock %}
+
+{% block trang_thai_doi_mk %}
+
+{% if trang_thai == "giong" %}
+<div>Mật khẩu mới không thay đổi</div>
+{% elif trang_thai == "thanh_cong" %}
+<div>Đổi mật khẩu thành công</div>
+{% elif trang_thai == "fail" %}
+<div>Đổi mật khẩu không thành công</div>
+{% endif %}
+
+{% endblock %}

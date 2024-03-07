@@ -1,0 +1,93 @@
+{% extends "pages/base.html" %}
+
+{% block thong_tin_ca_nhan %}
+<div class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card" style="background-color: rgba(255, 255, 255, 0.5);">
+        <div class="card-body">
+          <h4 class="card-title text-center">Thông tin cá nhân</h4>
+          {% if user == 'SinhVien' %}
+          <div class="card-text">
+            <div class="d-flex flex-wrap">
+              <div class="fw-bold me-3">Mã sinh viên:</div>
+              <div>{{sinh_vien.MaSV}}</div>
+            </div>
+            <div class="d-flex flex-wrap">
+              <div class="fw-bold me-3">Tên sinh viên:</div>
+              <div>{{sinh_vien.TenSV}}</div>
+            </div>
+            <div class="d-flex flex-wrap">
+              <div class="fw-bold me-3">Ngày sinh:</div>
+              <div>{{sinh_vien.NgaySinh}}</div>
+            </div>
+            <div class="d-flex flex-wrap">
+              <div class="fw-bold me-3">Giới tính:</div>
+              <div>{{sinh_vien.GioiTinh}}</div>
+            </div>
+            <div class="d-flex flex-wrap">
+              <div class="fw-bold me-3">Điện thoại:</div>
+              <div>{{sinh_vien.SoDT}}</div>
+            </div>
+            <div class="d-flex flex-wrap">
+              <div class="fw-bold me-3">Email:</div>
+              <div>{{sinh_vien.Email}}</div>
+            </div>
+            <div class="d-flex flex-wrap">
+              <div class="fw-bold me-3">Ngành:</div>
+              <div>{{sinh_vien.Nganh}}</div>
+            </div>
+            <div class="d-flex flex-wrap">
+              <div class="fw-bold me-3">Khoa:</div>
+              <div>{{sinh_vien.Khoa}}</div>
+            </div>
+          </div>
+          {% elif user == 'GiangVien' %}
+          <div class="card-text">
+            <div class="d-flex flex-wrap">
+              <div class="fw-bold me-3">Mã giảng viên:</div>
+              <div>{{giang_vien.MaGV}}</div>
+            </div>
+            <div class="d-flex flex-wrap">
+              <div class="fw-bold me-3">Tên giảng viên:</div>
+              <div>{{giang_vien.TenGV}}</div>
+            </div>
+            <div class="d-flex flex-wrap">
+              <div class="fw-bold me-3">Điện thoại:</div>
+              <div>{{giang_vien.SoDT}}</div>
+            </div>
+            <div class="d-flex flex-wrap">
+              <div class="fw-bold me-3">Email:</div>
+              <div>{{giang_vien.Email}}</div>
+            </div>
+            <div class="d-flex flex-wrap">
+              <div class="fw-bold me-3">Khoa:</div>
+              <div>{{giang_vien.Khoa}}</div>
+            </div>
+          </div>
+          {% elif user == 'GiamThi' %}
+          <div class="card-text">
+            <div class="d-flex flex-wrap">
+              <div class="fw-bold me-3">Mã giám thị:</div>
+              <div>{{giam_thi.MaGT}}</div>
+            </div>
+            <div class="d-flex flex-wrap">
+              <div class="fw-bold me-3">Tên giám thị:</div>
+              <div>{{giam_thi.TenGT}}</div>
+            </div>
+            <div class="d-flex flex-wrap">
+              <div class="fw-bold me-3">Điện thoại:</div>
+              <div>{{giam_thi.SDT}}</div>
+            </div>
+            <div class="d-flex flex-wrap">
+              <div class="fw-bold me-3">Email:</div>
+              <div>{{giam_thi.Email}}</div>
+            </div>
+          </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

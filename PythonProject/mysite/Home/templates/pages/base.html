@@ -1,0 +1,545 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Ptit quan li lich thi</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- link bootstrap@5.2.3 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- link font awesome@6.4 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- jQuery library -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+  <!-- Datepicker plugin -->
+  <link rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js">
+  </script>
+
+  <link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+
+</head>
+
+<body>
+  <div id="particles-js"> </div>
+  <script type="text/javascript" src="{% static 'js/particles.js' %}"></script>
+  <script type="text/javascript" src="{% static 'js/app.js' %}"></script>
+
+  <nav class="navbar navbar-expand-lg navbar-light" style="background-color: rgba(255, 255, 255, 0.5);">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+        <img src="/Home/media/images/ptit_logo.jpg" alt="img" style="max-width: 40px;">
+      </a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'Home' %}"> <i class="fa-solid fa-house-user fa-xl"></i> Trang chủ</a>
+          </li>
+          {% if user == 'Admin' %}
+          <li class="nav-item dropdown">
+            <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"> Môn học </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#myModal_1">Thêm Môn học</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#myModal_4">Thêm Môn học từ Excel</a>
+              </li>
+              <li>
+                <a class="dropdown-item" href="{% url 'ds_mon_hoc' %}"> DS Môn học </a>
+              </li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"> Giảng viên </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#myModal_2">Thêm Giảng viên</a>
+              </li>
+              <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#myModal_6">Thêm Giảng viên
+                  từ Excel</a>
+              </li>
+              <li><a class="dropdown-item" href="{% url 'giang_vien' %}">DS Giảng Viên</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"> Lớp học </button>
+            <ul class="dropdown-menu">
+              <li>
+                <a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#myModal_3">Thêm Lớp học</a>
+              </li>
+              <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#myModal_5">Thêm LH từ
+                  Excel</a></li>
+              <li><a class="dropdown-item" href="{% url 'full_lop_hoc' %}">DS Lớp học</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"> Sinh viên </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#myModal_7">Thêm SV từ
+                  Excel</a></li>
+              <li><a class="dropdown-item" href="{% url 'sinh_vien' %}">DS Sinh viên</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"> Giám thị </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="#" data-bs-toggle="modal" data-bs-target="#myModal_8">Thêm GT từ
+                  Excel</a></li>
+              <li><a class="dropdown-item" href="{% url 'giam_thi' %}">DS Giám thị</a></li>
+
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false"> Lịch thi </button>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" href="{% url 'lich_thi' %}"> Xếp lịch thi </a></li>
+              <li><a class="dropdown-item" href="{% url 'sua_lich_thi' %}"> Sửa Lịch thi </a></li>
+              <li><a class="dropdown-item" href="{% url 'xem_lich_thi' %}"> Xem Lịch thi </a></li>
+              <li><a class="dropdown-item" href="{% url 'thong_ke' %}"> Thống kê </a></li>
+            </ul>
+          </li>
+
+          {% elif user == 'SinhVien' %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'xem_lich_thi' %}"> Xem lịch thi </a>
+          </li>
+          {% elif user == 'GiamThi' %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'lich_coi_thi' %}"> Xem lịch coi thi </a>
+          </li>
+          <li><a class="nav-link" href="{% url 'thong_ke' %}"> Thống kê </a></li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'gv_lop_hoc' %}"> Lớp giảng dạy</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'thong_ke' %}"> Xem lịch thi các lớp</a>
+          </li>
+          {% endif %}
+
+        </ul>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          {% if user != 'Admin' %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'thong_tin_ca_nhan' %}">
+              <i class="fa-regular fa-circle-user fa-lg"></i>
+            </a>
+          </li>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              Admin
+            </a>
+          </li>
+          {% endif %}
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'Home' %}" data-bs-toggle="modal" data-bs-target="#doi_mat_khau">
+              Đổi mật khẩu
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'dang_nhap' %}">
+              <i class="fa-solid fa-right-from-bracket fa-shake"></i> Thoát
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  {% block thong_tin_ca_nhan %} {% endblock %}
+
+  <div class="modal fade" id="modal_test" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Trạng thái</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div style="color: green;">{{trang_thai}}</div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  {% if trang_thai %}
+  <script>
+    $(document).ready(function () {
+      // Kích hoạt modal
+      $('#modal_test').modal('show');
+    });
+  </script>
+  {% endif %}
+
+  {% block listSV %} {% endblock %}
+  {% block thong_ke %} {% endblock %}
+
+  {% if user == 'Admin' %}
+
+    {% block listMH %} {% endblock %}
+    {% block listGV %} {% endblock %}
+    {% block listLH %} {% endblock %}
+    {% block LichThi %} {% endblock %}
+    {% block XemLichThi %} {% endblock %}
+    {% block listGT %} {% endblock %}
+    {% block suaLichThi %} {% endblock %}
+    {% block full_ds_lop %} {% endblock %}
+    
+  {% elif user == 'SinhVien'%}
+
+    {% block XemLichThi_SV %} {% endblock %}
+
+  {% elif user == 'GiamThi'%}
+
+    {% block lich_coi_thi %} {% endblock %}
+
+  {% else %}
+
+    {% block gv_lop_hoc %} {% endblock %}
+
+  {% endif %}
+
+  {% block trang_chu %} {% endblock %}
+
+
+  {% block GiamThi_excel %}
+  <div class="modal fade" id="myModal_8" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Thêm Giám thị</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'giam_thi' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" style="display: none;" name="ThemGT_Excel">
+            <div class="mb-3">
+              <label for="fileUpload" class="form-label">Tải lên file Excel</label>
+              <input type="file" class="form-control" id="file" name="file_ThemGT" accept=".xlsx, .xls">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+              <button type="submit" class="btn btn-primary">Xác nhận</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block SinhVien_excel %}
+  <div class="modal fade" id="myModal_7" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Thêm Sinh Viên</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'sinh_vien' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" style="display: none;" name="ThemSV_Excel">
+            <div class="mb-3">
+              <label for="fileUpload" class="form-label">Tải lên file Excel</label>
+              <input type="file" class="form-control" id="file" name="file_ThemSV" accept=".xlsx, .xls">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+              <button type="submit" class="btn btn-primary">Xác nhận</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block GiangVien_excel %}
+  <div class="modal fade" id="myModal_6" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Thêm giảng viên</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'giang_vien' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" style="display: none;" name="ThemGV_Excel">
+            <div class="mb-3">
+              <label for="fileUpload" class="form-label">Tải lên file Excel</label>
+              <input type="file" class="form-control" id="file" name="file_ThemGV" accept=".xlsx, .xls">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+              <button type="submit" class="btn btn-primary">Xác nhận</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block MonHoc_excel %}
+  <div class="modal fade" id="myModal_4" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Thêm môn học</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'ds_mon_hoc' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" style="display: none;" name="ThemMH_Excel">
+            <div class="mb-3">
+              <label for="fileUpload" class="form-label">Tải lên file Excel</label>
+              <input type="file" class="form-control" id="file" name="file" accept=".xlsx, .xls">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+              <button type="submit" class="btn btn-primary">Xác nhận</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block LopHoc_Excel %}
+  <div class="modal fade" id="myModal_5" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Thêm lớp học</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'full_lop_hoc' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <input type="text" style="display: none;" name="LopHoc_Excel">
+            <div class="mb-3">
+              <label for="fileUpload" class="form-label">Tải lên file Excel</label>
+              <input type="file" class="form-control" id="file" name="file_LopHoc" accept=".xlsx, .xls">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+              <button type="submit" class="btn btn-primary">Xác nhận</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block them_mon_hoc %}
+  <div class="modal fade" id="myModal_1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Thêm môn học</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'ds_mon_hoc' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="form1" style="display: none;">
+            <div class="mb-3">
+              <label for="name" class="form-label">Mã môn học</label>
+              <input type="text" class="form-control" name="ma_mon_hoc" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Tên môn học</label>
+              <input type="text" class="form-control" name="ten_mon_hoc" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Số tín chỉ</label>
+              <input type="number" class="form-control" name="so_tin_chi" required>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block them_giang_vien %}
+  <div class="modal fade" id="myModal_2" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Thêm giảng viên</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'giang_vien' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="form2" style="display: none;">
+            <div class="mb-3">
+              <label for="name" class="form-label">Mã giảng viên</label>
+              <input type="text" class="form-control" name="ma_giang_vien" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Tên giảng viên</label>
+              <input type="text" class="form-control" name="ten_giang_vien" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Số điện thoại</label>
+              <input type="text" class="form-control" name="so_dien_thoai" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Email</label>
+              <input type="email" class="form-control" name="email" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Khoa</label>
+              <input type="text" class="form-control" name="khoa" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Mật khẩu đăng nhập</label>
+              <input type="text" class="form-control" name="mat_khau" required>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block them_lop %}
+  <div class="modal fade" id="myModal_3" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Thêm lớp</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'full_lop_hoc' %}" method="post">
+            {% csrf_token %}
+            <input type="text" name="form3" style="display: none;">
+            <div class="mb-3">
+              <label for="name" class="form-label">Mã lớp</label>
+              <input type="text" class="form-control" name="ma_lop" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Mã môn học</label>
+              <input type="text" class="form-control" name="ma_mon_hoc" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Nhóm môn học</label>
+              <input type="text" class="form-control" name="nhom_mon_hoc" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Số lượng</label>
+              <input type="text" class="form-control" name="so_luong" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Phòng học</label>
+              <input type="text" class="form-control" name="phong_hoc" required>
+            </div>
+            <div class="mb-3">
+              <label for="email" class="form-label">Mã giảng viên</label>
+              <input type="text" class="form-control" name="ma_giang_vien" required>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+
+  {% block doi_mat_khau %}
+  <div class="modal fade" id="doi_mat_khau" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Đổi mật khẩu</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <form action="{% url 'Home' %}" method="post" id="doi_mat_khau">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="" class="form-label">Nhập mật khẩu cũ (*)</label>
+              <input type="password" class="form-control" name="old_pass" required>
+            </div>
+            <div class="mb-3">
+              <label for="" class="form-label">Mật khẩu mới (*)</label>
+              <input type="password" class="form-control" name="new_pass" required>
+            </div>
+            <div class="mb-3">
+              <label for="" class="form-label">Nhập lại mật khẩu mới (*)</label>
+              <input type="password" class="form-control" name="re_new_pass" required>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Đóng</button>
+              <button type="submit" class="btn btn-primary">Xác nhận</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}
+
+</body>
+
+</html>
+
+<script>
+  $(function () {
+    $('#date').datepicker({
+      format: 'dd/mm/yyyy',
+      autoclose: true
+    });
+  });
+</script>
+
+<script>
+  var myCarousel = document.querySelector('#carouselExampleSlidesOnly')
+  var carousel = new bootstrap.Carousel(myCarousel, {
+    interval: 5000,
+    wrap: true
+  })
+</script>

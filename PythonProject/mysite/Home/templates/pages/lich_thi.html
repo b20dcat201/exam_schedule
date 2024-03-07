@@ -1,0 +1,62 @@
+{% extends "pages/base.html" %}
+
+{% block LichThi %}
+<div class="container mt-5 d-flex align-items-center justify-content-center" >
+    <div class="card" style="background-color: rgba(255, 255, 255, 0.5);">
+        <div class="card-body">
+            <form action="{% url 'lich_thi' %}" method="post">
+                {% csrf_token %}
+                <!-- <input type="text" name="form1" style="display: none;"> -->
+                <div class="mb-3">
+                    <label for="name" class="form-label">Học kỳ</label>
+                    <select id="color" name="HocKy">
+                        <option value="1 - năm 2023-2024">Học kỳ 1 - năm 2023-2024</option>
+                        <option value="2 - năm 2023-2024">Học kỳ 2 - năm 2023-2024</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="date" class="form-label">Ngày bắt đầu thi</label>
+                    <input type="text" class="form-control-sm" id="date" name="ngay_bd_thi" placeholder="dd/mm/yyyy">
+                </div>
+                <div class="mb-3">
+                    <table class="table table-striped table-bordered">
+                        <thead>
+                            <tr>
+                                <th scope="col">STT</th>
+                                <th scope="col">Mã môn học</th>
+                                <th scope="col">Tên môn học</th>
+                                <th scope="col">Hình thức thi</th>
+                                <th scope="col">Số phút</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for i in MonThi %}
+                            <tr>
+                                <td>{{ i.SoTT }}</td>
+                                <td>{{ i.MaMH }}</td>
+                                <td>{{ i.TenMH }}</td>
+                                <td>
+                                    <select id="HinhThuc" name="HinhThuc{{i.SoTT}}" >
+                                        <option value="Tự luận">Tự luận</option>
+                                        <option value="Trắc nghiệm">Trắc nghiệm</option>
+                                        <option value="Tiểu luận">Tiểu luận</option>
+                                        <option value="Phòng máy">Phòng máy</option>
+                                        <option value="khác">khác</option>
+                                    </select>
+                                </td>
+                                <td><input type="number" class="w-50"  name="SoPhut{{i.SoTT}}"></td>
+                                <input type="text" style="display: none;" name="MaMH{{i.SoTT}}" value="{{i.MaMH}}">
+                                <input type="text" style="display: none;" name="TenMH{{i.SoTT}}" value="{{i.TenMH}}">
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit">Xếp lịch</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
